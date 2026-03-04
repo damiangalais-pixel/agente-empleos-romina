@@ -1,0 +1,22 @@
+name: Envio Diario de Empleos
+
+on:
+  schedule:
+    # Se ejecuta todos los días a las 12:00 UTC (9:00 AM Argentina)
+    - cron: '0 12 * * *'
+  workflow_dispatch: # Esto permite que lo pruebes manualmente cuando quieras
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar codigo
+        uses: actions/checkout@v2
+      - name: Configurar Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+      - name: Instalar librerias
+        run: pip install requests
+      - name: Ejecutar agente
+        run: python agente.py
